@@ -1,17 +1,24 @@
 var path = require('path')
 var context = path.dirname(module.parent.filename)
 
+// only for relative path uri
 module.exports = function (uri) {
-  var modulePath = path.resolve(context, uri)
-  var moduleExports = require(modulePath)
+  var filename = path.resolve(context, uri)
+  var cachedModule = getCachedModule(filename)
 
-  // clean current required module chache with children
-  cleanModulesCache(module)
-  return moduleExports
+  if (cachedModule) {
+    cleanModulesCache(cachedModule)
+  }
+
+  return require(filename)
 }
 
 // clean self cache for dynamic module.parent
 cleanModulesCache(module)
+
+function getCachedModule (filename) {
+  return require.cache[filename]
+}
 
 // clean caches recursively
 function cleanModulesCache (modules) {
