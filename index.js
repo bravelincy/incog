@@ -1,10 +1,13 @@
-var path = require('path')
-var context = path.dirname(module.parent.filename)
+'use strict'
+
+const path = require('path')
+const context = path.dirname(module.parent.filename)
 
 // only for relative path uri
 module.exports = function (uri) {
-  var filename = path.resolve(context, uri)
-  var cachedModule = getCachedModule(filename)
+  const filename = path.resolve(context, uri)
+  const modluePath = require.resolve(filename)
+  const cachedModule = getCachedModule(modluePath)
 
   if (cachedModule) {
     cleanModulesCache(cachedModule)

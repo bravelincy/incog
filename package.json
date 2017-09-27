@@ -1,6 +1,6 @@
 {
   "name": "incog",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "require node modules without cache",
   "main": "index.js",
   "scripts": {
